@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Repo Link</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --fg: #e8edf2;
+      --muted: #9aa7b2;
+      --accent: #58a6ff;
+      --card: #131a24;
+      --btn: #1f6feb;
+      --btn-hover: #2b79f7;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 800px at 20% 10%, #0f1626 0%, var(--bg) 60%) fixed;
+      color: var(--fg);
+      font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+    }
+    .wrap {
+      width: min(720px, calc(100% - 32px));
+      background: var(--card);
+      border: 1px solid #1c2432;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    header {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 6px;
+    }
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px; height: 72px;
+      border-radius: 12px;
+      background: #0d1117;
+      border: 1px solid #222b3a;
+      transition: transform .12s ease;
+    }
+    .logo-link:hover { transform: translateY(-2px); }
+    .logo-link img { display: block; width: 44px; height: 44px; }
+    h1 { margin: 0 0 4px; font-size: 22px; line-height: 1.2; letter-spacing: .2px; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .actions {
+      display: flex; align-items: center; gap: 10px; margin: 12px 0 6px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      appearance: none; border: none; background: var(--btn); color: #fff;
+      padding: 10px 16px; border-radius: 10px; font-weight: 600; cursor: pointer;
+      transition: background .15s ease, transform .06s ease;
+    }
+    .btn:hover { background: var(--btn-hover); }
+    .btn:active { transform: translateY(1px); }
+    .meta {
+      margin-top: 8px; padding: 12px; border-radius: 10px;
+      background: #0f1520; border: 1px solid #1b2231;
+    }
+    .meta dl {
+      display: grid; grid-template-columns: 160px 1fr; gap: 6px 14px; margin: 0;
+    }
+    .meta dt { color: var(--muted); font-weight: 600; text-align: right; }
+    .meta dd { margin: 0; word-break: break-word; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .site-footer {
+      margin-top: 8px;
+      padding-top: 10px;
+      border-top: 1px solid #24324a;
+      font-size: 12px;
+      color: var(--muted);
+      display: grid;
+      gap: 6px;
+    }
+
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,.55);
+      display: none; align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-backdrop[aria-hidden="false"] { display: flex; }
+    .modal {
+      width: min(560px, 100%); background: #0f1520; border: 1px solid #263149;
+      border-radius: 14px; box-shadow: var(--shadow); padding: 18px;
+    }
+    .modal h2 { margin: 0 0 6px; font-size: 18px; }
+    .modal p  { margin: 6px 0 12px; color: var(--fg); }
+    .modal .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+    .modal .ghost { background: transparent; color: var(--fg); border: 1px solid #2a3854; }
+    .sr-only {
+      position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="region" aria-label="Project">
+    <header>
+      <a id="logoLink" class="logo-link" href="#" target="_blank" rel="noopener">
+        <img src="https://fileshare.huntersdesigns.com/github-mark-white.svg" alt="GitHub logo" />
+        <span class="sr-only">Open repository</span>
+      </a>
+      <div>
+        <h1 id="projectName">Project</h1>
+        <div class="sub" id="projectDesc">Description</div>
+      </div>
+    </header>
+
+    <div class="actions">
+      <button id="goToRepo" class="btn" type="button">Go to Repo</button>
+      <a id="creatorLink" href="#" target="_blank" rel="noopener" aria-label="Creator profile"></a>
+    </div>
+
+    <section class="meta" aria-labelledby="detailsHeading">
+      <h2 id="detailsHeading" class="sr-only">Project details</h2>
+      <dl>
+        <dt>Creator</dt>
+        <dd id="creatorName">—</dd>
+
+        <dt>GitHub Username</dt>
+        <dd id="githubUser">—</dd>
+
+        <dt>Repository</dt>
+        <dd><a id="repoUrl" href="#" target="_blank" rel="noopener">—</a></dd>
+
+        <dt>Last Updated</dt>
+        <dd id="lastUpdated">—</dd>
+      </dl>
+    </section>
+
+    <footer class="site-footer" role="contentinfo">
+      <div id="openSourceLine">This file is open-sourced.</div>
+      <div>
+        By using or distributing this file, you agree its copyright and licensing follow the rules at
+        <a href="https://github.com/hunterthenova/gitdownloadfile" target="_blank" rel="noopener">github.com/hunterthenova/gitdownloadfile</a>.
+      </div>
+      <div>
+        License for this project: <strong id="footerLicense">MIT</strong> (see repository for details).
+      </div>
+      <div>
+        <span id="copyrightYear"></span> <span id="copyrightName"></span>
+      </div>
+    </footer>
+  </div>
+
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true" aria-labelledby="modalTitle" role="dialog">
+    <div class="modal" role="document">
+      <h2 id="modalTitle">License Disclosure</h2>
+      <p>
+        By proceeding to this repository, you acknowledge that you will follow the repository’s license. For this project, it is the <strong id="licenseName">MIT License</strong>.
+      </p>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+        <button type="button" class="btn" id="agreeBtn">I agree &amp; go to repo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Configuration: edit the values below -->
+  <script type="application/json" id="project-config">
+  {
+    "creatorFullName": "Hunter Moyer",
+    "githubUsername": "hunterthenova",
+    "repoUrl": "https://github.com/hunterthenova/gitdownloadfile",
+    "projectName": "gitdownloadfile",
+    "projectDesc": "A simple repository link page with licensing disclosure.",
+    "lastUpdated": "2025-09-13",
+    "license": "MIT",
+    "copyrightYear": "2025"
+  }
+  </script>
+
+  <script>
+    (function () {
+      function $(id) { return document.getElementById(id); }
+
+      let cfg = {
+        creatorFullName: "—",
+        githubUsername: "",
+        repoUrl: "#",
+        projectName: "Project",
+        projectDesc: "—",
+        lastUpdated: "—",
+        license: "MIT",
+        copyrightYear: new Date().getFullYear().toString()
+      };
+
+      try {
+        const raw = $("project-config")?.textContent?.trim();
+        if (raw) cfg = Object.assign(cfg, JSON.parse(raw) || {});
+      } catch (e) {
+        console.warn("Invalid project-config JSON; using defaults.", e);
+      }
+
+      $("projectName").textContent = cfg.projectName || "Project";
+      $("projectDesc").textContent = cfg.projectDesc || "—";
+
+      const profileUrl = cfg.githubUsername ? `https://github.com/${cfg.githubUsername}` : "#";
+      const creatorLink = $("creatorLink");
+      creatorLink.href = profileUrl;
+      creatorLink.textContent = cfg.githubUsername ? `@${cfg.githubUsername}` : "GitHub Profile";
+
+      $("creatorName").textContent = cfg.creatorFullName || "—";
+
+      const ghUser = $("githubUser");
+      ghUser.innerHTML = cfg.githubUsername
+        ? `<a href="${profileUrl}" target="_blank" rel="noopener">@${cfg.githubUsername}</a>`
+        : "—";
+
+      const repoAnchor = $("repoUrl");
+      repoAnchor.href = cfg.repoUrl || "#";
+      repoAnchor.textContent = cfg.repoUrl || "—";
+
+      const logoLink = $("logoLink");
+      logoLink.href = cfg.repoUrl || "#";
+
+      $("lastUpdated").textContent = cfg.lastUpdated || "—";
+
+      const lic = (cfg.license || "MIT").trim();
+      $("licenseName").textContent = lic + " License";
+      $("footerLicense").textContent = lic;
+
+      $("copyrightYear").textContent = cfg.copyrightYear || new Date().getFullYear();
+      $("copyrightName").textContent = cfg.creatorFullName ? `© ${cfg.creatorFullName}` : "";
+
+      const backdrop = $("modalBackdrop");
+      function openDisclosure() {
+        backdrop.setAttribute("aria-hidden", "false");
+        $("agreeBtn").focus();
+      }
+      function closeDisclosure() {
+        backdrop.setAttribute("aria-hidden", "true");
+        $("goToRepo").focus();
+      }
+      function proceed() {
+        if (cfg.repoUrl && cfg.repoUrl !== "#") window.location.href = cfg.repoUrl;
+        else closeDisclosure();
+      }
+
+      $("goToRepo").addEventListener("click", openDisclosure);
+      $("cancelBtn").addEventListener("click", closeDisclosure);
+      $("agreeBtn").addEventListener("click", proceed);
+
+      document.addEventListener("keydown", (e) => {
+        if (backdrop.getAttribute("aria-hidden") === "false" && e.key === "Escape") {
+          e.preventDefault(); closeDisclosure();
+        }
+      });
+      backdrop.addEventListener("click", (e) => { if (e.target === backdrop) closeDisclosure(); });
+    })();
+  </script>
+</body>
+</html>
